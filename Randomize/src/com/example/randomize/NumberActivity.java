@@ -1,8 +1,5 @@
 package com.example.randomize;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -12,19 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class NumberActivity extends Activity {
-	private TextView resultLabel;
-	private int frequency = 0;
-	private int count = 0;
-	private int start = 0;
-	private int end = 0;
-	private Timer timer;
-	static private Handler mHandler = new Handler();
+	private TextView mResultLabel;
+	private Thread mThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_number);
-		resultLabel = (TextView) findViewById(R.id.textViewResult);
+		mResultLabel = (TextView) findViewById(R.id.textViewResult);
 	}
 
 	@Override
@@ -34,35 +26,59 @@ public class NumberActivity extends Activity {
 		return true;
 	}
 	
+	public void setLabelText(String s) {
+		mResultLabel.setText(s);
+	}
+	
 	public void rollNumber(final View view) {
 		EditText startView = (EditText) findViewById(R.id.editTextRangeStart);
 		EditText endView = (EditText) findViewById(R.id.editTextRangeEnd);
 		
-		int startNum = Integer.valueOf(startView.getText().toString());
-		int endNum = Integer.valueOf(endView.getText().toString());
+		int start = Integer.valueOf(startView.getText().toString());
+		int end = Integer.valueOf(endView.getText().toString());
 		
-		start = startNum < endNum ? startNum : endNum;
-		end = startNum > endNum ? startNum : endNum;
+		if(mThread != null && mThread.isAlive()) {
+			mThread.interrupt();
+		}
 		
-		timer = new Timer();
-		frequency = 150;
-		count = 0;
-		timer.schedule(new TimerTask() {
-			public void run() {
+		mThread = new RollingThread(start, end);
+		mThread.start();
+	}
+	
+	class RollingThread extends Thread {
+		private int count = 0;
+		private final int[] counts = new int[]{18, 24, 27};
+		private final int start;
+		private final int end;
+		private Handler mHandler = new Handler();
+		
+		public RollingThread(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+
+		public void run() {
+			while(count < counts[2]) {
 				final int random = start + (int)(Math.random() * (end+1-start));
-				if(count >= 35) {
-					timer.cancel();
-					timer.purge();
-				}
-				count++;
 				mHandler.post(new Runnable() {
-					@Override
 					public void run() {
-						resultLabel.setText(String.valueOf(String.valueOf(random)));
+						setLabelText(String.valueOf(random));
 					}
 				});
+				int delay = 1000/(counts[2]-counts[1]);
+				if(count < counts[0]) {
+					delay = 1000/counts[0];
+				}
+				else if(count < counts[1]) {
+					delay = 1000/(counts[1]-counts[0]);
+				}
+				count++;
+				try {
+					Thread.sleep(delay);
+				} catch (InterruptedException e) {
+				}
 			}
-		}, 0, frequency);
+		 }
 	}
 
 }
