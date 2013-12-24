@@ -3,6 +3,7 @@ package com.example.randomize;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
@@ -65,31 +66,32 @@ public class NumberActivity extends Activity {
 		}
 
 		public void run() {
-			while(count < counts[2]) {
-				final int random = start + (int)(Math.random() * (end+1-start));
+			try {
+				while(!Thread.currentThread().isInterrupted() && count < counts[2]) {
+					final int random = start + (int)(Math.random() * (end+1-start));
+					mHandler.post(new Runnable() {
+						public void run() {
+							setLabelText(String.valueOf(random));
+						}
+					});
+					int delay = 1000/(counts[2]-counts[1]);
+					if(count < counts[0]) {
+						delay = 1000/counts[0];
+					}
+					else if(count < counts[1]) {
+						delay = 1000/(counts[1]-counts[0]);
+					}
+					count++;
+						Thread.sleep(delay);
+				}
 				mHandler.post(new Runnable() {
 					public void run() {
-						setLabelText(String.valueOf(random));
+						animateLabel();
 					}
 				});
-				int delay = 1000/(counts[2]-counts[1]);
-				if(count < counts[0]) {
-					delay = 1000/counts[0];
-				}
-				else if(count < counts[1]) {
-					delay = 1000/(counts[1]-counts[0]);
-				}
-				count++;
-				try {
-					Thread.sleep(delay);
-				} catch (InterruptedException e) {
-				}
+			} catch (InterruptedException e) {
+				Log.d("Thread interrupt", "this is interrupted!");
 			}
-			mHandler.post(new Runnable() {
-				public void run() {
-					animateLabel();
-				}
-			});
 		 }
 	}
 
