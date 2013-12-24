@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,6 +32,11 @@ public class NumberActivity extends Activity {
 		mResultLabel.setText(s);
 	}
 	
+	public void animateLabel() {
+		Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+		mResultLabel.startAnimation(animation);
+	}
+	
 	public void rollNumber(final View view) {
 		EditText startView = (EditText) findViewById(R.id.editTextRangeStart);
 		EditText endView = (EditText) findViewById(R.id.editTextRangeEnd);
@@ -47,7 +54,7 @@ public class NumberActivity extends Activity {
 	
 	class RollingThread extends Thread {
 		private int count = 0;
-		private final int[] counts = new int[]{18, 24, 27};
+		private final int[] counts = new int[]{16, 24, 28};
 		private final int start;
 		private final int end;
 		private Handler mHandler = new Handler();
@@ -78,6 +85,11 @@ public class NumberActivity extends Activity {
 				} catch (InterruptedException e) {
 				}
 			}
+			mHandler.post(new Runnable() {
+				public void run() {
+					animateLabel();
+				}
+			});
 		 }
 	}
 
