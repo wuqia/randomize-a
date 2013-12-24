@@ -3,5 +3,12 @@
 
     <string name="app_name">Randomize</string>
     <string name="title_category_detail">Category Detail</string>
+    <string name="title_activity_number">NumberActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="range">Range</string>
+    <string name="to">-</string>
+    <string name="roll">Roll!</string>
+    <string name="number_lowerbound">1</string>
+    <string name="number_upperbound">100</string>
 
 </resources>

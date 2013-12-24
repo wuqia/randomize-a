@@ -71,9 +71,15 @@ public class CategoryListActivity extends FragmentActivity implements
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
-			Intent detailIntent = new Intent(this, CategoryDetailActivity.class);
-			detailIntent.putExtra(CategoryDetailFragment.ARG_ITEM_ID, id);
-			startActivity(detailIntent);
+			if(id == "option_number") {
+				Intent numberIntent = new Intent(this, NumberActivity.class);
+				startActivity(numberIntent);
+			}
+			else {
+				Intent detailIntent = new Intent(this, CategoryDetailActivity.class);
+				detailIntent.putExtra(CategoryDetailFragment.ARG_ITEM_ID, id);
+				startActivity(detailIntent);
+			}
 		}
 	}
 }

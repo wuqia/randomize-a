@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.randomize.dummy.DummyContent;
+import com.example.randomize.data.MainOptions;
 
 /**
  * A fragment representing a single Category detail screen. This fragment is
@@ -24,7 +24,7 @@ public class CategoryDetailFragment extends Fragment {
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
-	private DummyContent.DummyItem mItem;
+	private MainOptions.OptionItem mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,7 +41,7 @@ public class CategoryDetailFragment extends Fragment {
 			// Load the dummy content specified by the fragment
 			// arguments. In a real-world scenario, use a Loader
 			// to load content from a content provider.
-			mItem = DummyContent.ITEM_MAP.get(getArguments().getString(
+			mItem = MainOptions.ITEM_MAP.get(getArguments().getString(
 					ARG_ITEM_ID));
 		}
 	}
