@@ -10,5 +10,6 @@
     <string name="roll">Roll!</string>
     <string name="number_lowerbound">1</string>
     <string name="number_upperbound">100</string>
+    <string name="question_mark">\?</string>
 
 </resources>

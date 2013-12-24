@@ -25,15 +25,17 @@ public final class R {
     }
     public static final class id {
         public static final int TextView01=0x7f080002;
-        public static final int action_settings=0x7f080009;
+        public static final int action_settings=0x7f08000b;
         public static final int buttonRoll=0x7f080007;
-        public static final int category_detail=0x7f080008;
+        public static final int category_detail=0x7f08000a;
         public static final int category_detail_container=0x7f080000;
         public static final int category_list=0x7f080001;
         public static final int editTextRangeEnd=0x7f080006;
         public static final int editTextRangeStart=0x7f080004;
         public static final int linearLayout1=0x7f080003;
+        public static final int resultContainer=0x7f080008;
         public static final int textView1=0x7f080005;
+        public static final int textViewResult=0x7f080009;
     }
     public static final class layout {
         public static final int activity_category_detail=0x7f030000;
@@ -65,6 +67,7 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int number_lowerbound=0x7f050007;
         public static final int number_upperbound=0x7f050008;
+        public static final int question_mark=0x7f050009;
         public static final int range=0x7f050004;
         public static final int roll=0x7f050006;
         public static final int title_activity_number=0x7f050002;

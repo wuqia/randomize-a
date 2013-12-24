@@ -55,7 +55,6 @@
             android:maxLength="9"
             android:singleLine="true"
             android:text="@string/number_upperbound" />
-
     </LinearLayout>
 
     <Button
@@ -64,5 +63,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/roll" />
+
+    <RelativeLayout
+        android:id="@+id/resultContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/question_mark"
+            android:textSize="200sp"
+            android:typeface="serif" />
+
+    </RelativeLayout>
 
 </LinearLayout>
